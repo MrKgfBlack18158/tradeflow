@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: trade-gateway
+  mvc:
+    problemdetails:
+      enabled: true          # validation errors come back as RFC 7807 JSON
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all              # wait for the broker to persist the write
+      properties:
+        enable.idempotence: true          # no duplicate writes on producer retries
+        spring.json.add.type.headers: false  # consumers decide the target type themselves
+
+tradeflow:
+  topics:
+    raw: trades.raw
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true        # /actuator/health/liveness and /readiness, used by Kubernetes later
