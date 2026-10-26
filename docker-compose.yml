@@ -9,13 +9,13 @@ services:
     image: apache/kafka:4.0.0          # KRaft mode: no ZooKeeper needed
     container_name: kafka
     ports:
-      - "9092:9092"
+      - "127.0.0.1:9092:9092"   # localhost only: not reachable from the network
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
       # PLAINTEXT = for apps on the host (localhost:9092); DOCKER = for other containers (kafka:29092)
       KAFKA_LISTENERS: PLAINTEXT://:9092,DOCKER://:29092,CONTROLLER://:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,DOCKER://kafka:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://127.0.0.1:9092,DOCKER://kafka:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,DOCKER:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
@@ -36,7 +36,7 @@ services:
     image: mongo:8.0
     container_name: mongodb
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017" # localhost only: not reachable from the network
     volumes:
       - mongo-data:/data/db
     command: ["--wiredTigerCacheSizeGB", "0.25"]   # small cache for 8 GB machines
@@ -51,7 +51,7 @@ services:
     container_name: kafka-ui
     profiles: ["ui"]
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"   # localhost only
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
