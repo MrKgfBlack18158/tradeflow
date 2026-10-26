@@ -1,15 +1,16 @@
 server:
   port: 8082
+  address: 127.0.0.1      # listen on this machine only, not on the network
 
 spring:
   application:
     name: trade-processor
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://localhost:27017/tradeflow}
+      uri: ${MONGODB_URI:mongodb://127.0.0.1:27017/tradeflow}
       auto-index-creation: true          # create the @Indexed(account) index on startup
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:9092}
     consumer:
       group-id: trade-processor          # all processor instances share the work
       auto-offset-reset: earliest        # a brand-new group starts from the oldest message

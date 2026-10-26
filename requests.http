@@ -1,29 +1,29 @@
 ### Submit a valid trade (gateway)
-POST http://localhost:8081/api/trades
+POST http://127.0.0.1:8081/api/trades
 Content-Type: application/json
 
 {"account": "ACC-1", "symbol": "INFY", "side": "BUY", "quantity": 100, "price": 1520.50}
 
 ### Submit a trade that breaks the notional limit (processor will REJECT it)
-POST http://localhost:8081/api/trades
+POST http://127.0.0.1:8081/api/trades
 Content-Type: application/json
 
 {"account": "ACC-1", "symbol": "TCS", "side": "SELL", "quantity": 10000, "price": 4100}
 
 ### Invalid input (gateway returns 400)
-POST http://localhost:8081/api/trades
+POST http://127.0.0.1:8081/api/trades
 Content-Type: application/json
 
 {"account": "", "symbol": "INFY", "side": "BUY", "quantity": 0, "price": -1}
 
 ### Look up one trade (paste a tradeId from the responses above)
-GET http://localhost:8083/api/trades/PASTE-TRADE-ID
+GET http://127.0.0.1:8083/api/trades/PASTE-TRADE-ID
 
 ### All trades for an account
-GET http://localhost:8083/api/accounts/ACC-1/trades
+GET http://127.0.0.1:8083/api/accounts/ACC-1/trades
 
 ### Positions for an account
-GET http://localhost:8083/api/accounts/ACC-1/positions
+GET http://127.0.0.1:8083/api/accounts/ACC-1/positions
 
 ### Health / readiness (what Kubernetes will call)
-GET http://localhost:8082/actuator/health/readiness
+GET http://127.0.0.1:8082/actuator/health/readiness

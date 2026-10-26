@@ -1,5 +1,6 @@
 server:
   port: 8081
+  address: 127.0.0.1      # listen on this machine only, not on the network
 
 spring:
   application:
@@ -8,7 +9,7 @@ spring:
     problemdetails:
       enabled: true          # validation errors come back as RFC 7807 JSON
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:127.0.0.1:9092}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

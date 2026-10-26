@@ -1,12 +1,13 @@
 server:
   port: 8083
+  address: 127.0.0.1      # listen on this machine only, not on the network
 
 spring:
   application:
     name: trade-query
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://localhost:27017/tradeflow}
+      uri: ${MONGODB_URI:mongodb://127.0.0.1:27017/tradeflow}
 
 management:
   endpoints:
